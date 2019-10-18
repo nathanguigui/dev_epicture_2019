@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'SplashScreen.dart';
 import 'connexionPage.dart';
 import 'ourGalleryPage.dart';
 import 'searchingPage.dart';
@@ -7,8 +8,9 @@ import 'favoritesPage.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: MyHomePage(title: 'page A'), // becomes the route named '/'
+    home: SplashScreen(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
+      '/SplashScreen': (BuildContext context) => SplashScreen(),
       '/a': (BuildContext context) => AuthPage(),
       '/b': (BuildContext context) => OwnerGalleryPage(),
       '/c': (BuildContext context) => SearchingPage(),
