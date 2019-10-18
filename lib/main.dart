@@ -10,12 +10,11 @@ void main() {
   runApp(MaterialApp(
     home: SplashScreen(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
-      '/SplashScreen': (BuildContext context) => SplashScreen(),
-      '/a': (BuildContext context) => AuthPage(),
-      '/b': (BuildContext context) => OwnerGalleryPage(),
-      '/c': (BuildContext context) => SearchingPage(),
-      '/d': (BuildContext context) => AddImagePage(),
-      '/e': (BuildContext context) => FavoritesPage(),
+      '/auth': (BuildContext context) => AuthPage(),
+      '/gallery': (BuildContext context) => OwnerGalleryPage(),
+      '/browser': (BuildContext context) => SearchingPage(),
+      '/add': (BuildContext context) => AddImagePage(),
+      '/favorites': (BuildContext context) => FavoritesPage(),
     },
   ));
 }
@@ -24,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
@@ -44,74 +44,80 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-      appBar: AppBar(
-        title: Text('Epicture'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ButtonTheme (
-              minWidth : 220.0,
-              child: RaisedButton(
-                onPressed: () => Navigator.pushNamed(context, '/a'),
-                child: const Text(
-                    'Connexion',
-                    style: TextStyle(fontSize: 20)
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ButtonTheme (
-              minWidth : 220.0,
-              child: RaisedButton(
-                onPressed: () => Navigator.pushNamed(context, '/b'),
-                child: const Text(
-                    'Galerie Personnelle',
-                    style: TextStyle(fontSize: 20)
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ButtonTheme (
-              minWidth : 220.0,
-              child: RaisedButton(
-                onPressed: () => Navigator.pushNamed(context, '/c'),
-                child: const Text(
-                    'Chercher une image',
-                    style: TextStyle(fontSize: 20)
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ButtonTheme (
-              minWidth : 220.0,
-              child: RaisedButton(
-                onPressed: () => Navigator.pushNamed(context, '/d'),
-                child: const Text(
-                    'Ajouter une photo',
-                    style: TextStyle(fontSize: 20)
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            ButtonTheme (
-              minWidth : 220.0,
-              child: RaisedButton(
-                onPressed: () => Navigator.pushNamed(context, '/e'),
-                child: const Text(
-                    'Favoris',
-                    style: TextStyle(fontSize: 20)
-                ),
-              ),
-            ),
-          ],
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text('Epicture'),
         ),
-      ),
-    );
+        drawer: new Drawer(
+          child: ListView(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                accountName: new Text('ImgurUsr'),
+                accountEmail: new Text('User@imgur.com'),
+                currentAccountPicture: new CircleAvatar(
+                  backgroundImage: new NetworkImage('https://i.imgur.com/KMLeXgi.jpg'),
+                ),
+              ),
+              ButtonTheme(
+                child: RaisedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/auth'),
+                  child: const Text(
+                      'Connexion',
+                      style: TextStyle(fontSize: 20)
+                  ),
+                ),
+              ),
+              ButtonTheme(
+                minWidth: 220.0,
+                child: RaisedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/gallery'),
+                  child: const Text(
+                      'Galerie Personnelle',
+                      style: TextStyle(fontSize: 20)
+                  ),
+                ),
+              ),
+              ButtonTheme(
+                minWidth: 220.0,
+                child: RaisedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/browser'),
+                  child: const Text(
+                      'Chercher une image',
+                      style: TextStyle(fontSize: 20)
+                  ),
+                ),
+              ),
+              ButtonTheme(
+                minWidth: 220.0,
+                child: RaisedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/add'),
+                  child: const Text(
+                      'Ajouter une photo',
+                      style: TextStyle(fontSize: 20)
+                  ),
+                ),
+              ),
+              ButtonTheme(
+                minWidth: 220.0,
+                child: RaisedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/favorites'),
+                  child: const Text(
+                      'Favoris',
+                      style: TextStyle(fontSize: 20)
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
+        ),
+      );
+    }
   }
-}

@@ -4,6 +4,7 @@ import 'package:epicture/connexionPage.dart';
 import 'package:epicture/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<Timer> loadData() async {
-    return new Timer(Duration(seconds: 7), onDoneLoading);
+    return new Timer(Duration(seconds: 3), onDoneLoading);
   }
 
   void onDoneLoading() async {
@@ -39,5 +40,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
 }
