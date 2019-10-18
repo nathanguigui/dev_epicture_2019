@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Epicture'),
         ),
@@ -120,18 +120,3 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
   }
-
-
-class Choice {
-  const Choice({this.title});
-
-  final String title;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Connexion'),
-  const Choice(title: 'Galerie Personnelle'),
-  const Choice(title: 'Rechercher'),
-  const Choice(title: 'Ajouter une Image'),
-  const Choice(title: 'Favoris'),
-];
