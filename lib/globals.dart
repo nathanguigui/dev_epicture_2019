@@ -1,4 +1,6 @@
 library epicture.globals;
+import 'dart:async';
+
 import 'package:imgur/imgur.dart';
 
 

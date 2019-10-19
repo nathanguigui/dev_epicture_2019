@@ -84,7 +84,7 @@ class _AuthPageState extends State<AuthPage> {
       }
       //globals.client = Imgur(Authentication.fromToken());
     });
-    if (this._token.length != 0) {
+    if (this._token is String && this._token.length != 0) {
       return Scaffold(
         appBar: AppBar(title: Text("Profil")),
         body: ListView(
@@ -92,7 +92,7 @@ class _AuthPageState extends State<AuthPage> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                Text(this._username)
+                Text(globals.username)
               ],
             )
           ],
@@ -101,20 +101,18 @@ class _AuthPageState extends State<AuthPage> {
     }
     if (this._openWebview)
       return this._webviewController;
-    if (this._token.length == 0) {
-      return Scaffold(
-        appBar: AppBar(title: Text("Connexion")),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () => this._login(),
-                child: Text("Cliquez pour vous conneter"),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(title: Text("Connexion")),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () => this._login(),
+              child: Text("Cliquez pour vous conneter"),
+            ),
+          ],
         ),
-      );
+      ),
+    );
     }
-  }
 }
