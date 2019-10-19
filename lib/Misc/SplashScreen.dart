@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:epicture/connexionPage.dart';
+import 'package:epicture/Pages/connexionPage.dart';
 import 'package:epicture/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

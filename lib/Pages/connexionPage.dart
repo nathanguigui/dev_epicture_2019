@@ -2,12 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:imgur/imgur.dart';
-import 'main.dart';
+import '../main.dart';
 import 'dart:async';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:toast/toast.dart';
-import 'globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Utils/globals.dart' as globals;
 
 class UserInfos {
   int accountId;
@@ -58,6 +59,13 @@ class _AuthPageState extends State<AuthPage> {
     return userInfos;
   }
 
+  void setLogin(String token, String username) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("token", token);
+    sharedPreferences.setString("username", username);
+    sharedPreferences.setBool("authenticated", true);
+  }
+
   @override
   Widget build(BuildContext context) {
     _webviewController = WebviewScaffold(
@@ -77,6 +85,7 @@ class _AuthPageState extends State<AuthPage> {
         globals.username = infos.username;
         globals.refreshToken = infos.refreshToken;
         globals.isLoggedIn = true;
+        this.setLogin(infos.token, infos.username);
         setState(() {
           _token = url;
           _username = infos.username;

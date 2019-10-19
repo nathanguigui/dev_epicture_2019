@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
-import 'SplashScreen.dart';
-import 'connexionPage.dart';
-import 'ourGalleryPage.dart';
-import 'searchingPage.dart';
-import 'addImagePage.dart';
-import 'favoritesPage.dart';
-import 'globals.dart' as globals;
+import 'Misc/SplashScreen.dart';
+import 'Pages/connexionPage.dart';
+import 'Pages/ourGalleryPage.dart';
+import 'Pages/searchingPage.dart';
+import 'Pages/addImagePage.dart';
+import 'Pages/favoritesPage.dart';
+import 'Utils/globals.dart' as globals;
 
 void main() {
   runApp(MaterialApp(
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   var _tabTabs = <Tab>[
     Tab(icon: Icon(Icons.home), text: 'Home'),
-    Tab(icon: Icon(Icons.cloud_upload), text: 'Ajouter une photo'),
+    Tab(icon: Icon(Icons.photo_library), text: 'Galerie'),
     Tab(icon: Icon(Icons.stars), text: 'Favoris'),
   ];
 

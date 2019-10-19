@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import '../main.dart';
 
-class AddImagePage extends StatefulWidget {
+class SearchingPage extends StatefulWidget {
   @override
-  _AddImagePageState createState() => _AddImagePageState();
+  _SearchingPagePageState createState() => _SearchingPagePageState();
 }
 
-class _AddImagePageState extends State<AddImagePage> {
+class _SearchingPagePageState extends State<SearchingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Ajouter une image")),
+      appBar: null,
       body: Center(
         child: Column(
           children: <Widget>[
