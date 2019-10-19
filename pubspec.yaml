@@ -14,7 +14,7 @@ description: epicture epitech
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,6 +26,7 @@ dependencies:
   oauth2: ^1.4.0
   flutter_webview_plugin: ^0.3.8
   toast: ^0.1.5
+  imgur: ^1.0.1
 
 dev_dependencies:
   flutter_test:

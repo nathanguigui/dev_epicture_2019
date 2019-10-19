@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void onDoneLoading() async {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyHomePage(title: "Salut")));
+    Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }
 
   @override
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           image: AssetImage('assets/images/splash.gif'),
           fit: BoxFit.fitHeight
         )
-      ),
+      )
     );
   }
 }
