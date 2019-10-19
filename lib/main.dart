@@ -11,6 +11,7 @@ import 'globals.dart' as globals;
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: SplashScreen(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
       '/splash': (BuildContext contet) => SplashScreen(),
