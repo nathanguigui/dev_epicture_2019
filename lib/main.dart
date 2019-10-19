@@ -62,7 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               ButtonTheme(
-                child: RaisedButton(
+                child: FlatButton(
+                  highlightColor: Colors.blue[400],
                   onPressed: () => Navigator.pushNamed(context, '/auth'),
                   child: const Text(
                       'Connexion',
@@ -72,7 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               ButtonTheme(
                 minWidth: 220.0,
-                child: RaisedButton(
+                child: FlatButton(
+                  highlightColor: Colors.blue[400],
                   onPressed: () => Navigator.pushNamed(context, '/gallery'),
                   child: const Text(
                       'Galerie Personnelle',
@@ -82,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               ButtonTheme(
                 minWidth: 220.0,
-                child: RaisedButton(
+                child: FlatButton(
+                  highlightColor: Colors.blue[400],
                   onPressed: () => Navigator.pushNamed(context, '/browser'),
                   child: const Text(
                       'Chercher une image',
@@ -92,7 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               ButtonTheme(
                 minWidth: 220.0,
-                child: RaisedButton(
+                child: FlatButton(
+                  highlightColor: Colors.blue[400],
                   onPressed: () => Navigator.pushNamed(context, '/add'),
                   child: const Text(
                       'Ajouter une photo',
@@ -102,7 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               ButtonTheme(
                 minWidth: 220.0,
-                child: RaisedButton(
+                child: FlatButton(
+                  highlightColor: Colors.blue[400],
                   onPressed: () => Navigator.pushNamed(context, '/favorites'),
                   child: const Text(
                       'Favoris',
