@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 import 'SplashScreen.dart';
 import 'connexionPage.dart';
@@ -11,6 +12,11 @@ import 'globals.dart' as globals;
 
 void main() {
   runApp(MaterialApp(
+    theme: ThemeData(
+      brightness: Brightness.dark,
+      accentColor: Colors.yellowAccent,
+      primaryColor: Colors.grey[900]
+    ),
     debugShowCheckedModeBanner: false,
     home: SplashScreen(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
@@ -29,8 +35,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: 'Flutter Demo',
+      color: Colors.green,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -48,85 +55,63 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+
+  TabController _tabController;
+
+  var _tabPages = <Widget>[
+    SearchingPage(),
+    OwnerGalleryPage(),
+    FavoritesPage(),
+  ];
+
+  var _tabTabs = <Tab>[
+    Tab(icon: Icon(Icons.home), text: 'Home'),
+    Tab(icon: Icon(Icons.cloud_upload), text: 'Ajouter une photo'),
+    Tab(icon: Icon(Icons.stars), text: 'Favoris'),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: _tabPages.length,
+      vsync: this
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('On The Flux'),
+          title: Text("EPICTURE"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.account_circle),
+              onPressed: () {Navigator.pushNamed(context, "/auth");},
+            )
+          ],
         ),
-        drawer: new Drawer(
-          child: ListView(
-            children: <Widget>[
-              new UserAccountsDrawerHeader(
-                accountName: new Text('ImgurUsr'),
-                accountEmail: new Text('User@imgur.com'),
-                currentAccountPicture: new CircleAvatar(
-                  backgroundImage: new NetworkImage('https://i.imgur.com/KMLeXgi.jpg'),
-                ),
-              ),
-              ButtonTheme(
-                child: FlatButton(
-                  highlightColor: Colors.blue[400],
-                  onPressed: () => Navigator.pushNamed(context, '/auth'),
-                  child: const Text(
-                      'Profil',
-                      style: TextStyle(fontSize: 20)
-                  ),
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 220.0,
-                child: FlatButton(
-                  highlightColor: Colors.blue[400],
-                  onPressed: () => Navigator.pushNamed(context, '/gallery'),
-                  child: const Text(
-                      'Galerie Personnelle',
-                      style: TextStyle(fontSize: 20)
-                  ),
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 220.0,
-                child: FlatButton(
-                  highlightColor: Colors.blue[400],
-                  onPressed: () => Navigator.pushNamed(context, '/browser'),
-                  child: const Text(
-                      'Chercher une image',
-                      style: TextStyle(fontSize: 20)
-                  ),
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 220.0,
-                child: FlatButton(
-                  highlightColor: Colors.blue[400],
-                  onPressed: () => Navigator.pushNamed(context, '/add'),
-                  child: const Text(
-                      'Ajouter une photo',
-                      style: TextStyle(fontSize: 20)
-                  ),
-                ),
-              ),
-              ButtonTheme(
-                minWidth: 220.0,
-                child: FlatButton(
-                  highlightColor: Colors.blue[400],
-                  onPressed: () => Navigator.pushNamed(context, '/favorites'),
-                  child: const Text(
-                      'Favoris',
-                      style: TextStyle(fontSize: 20)
-                  ),
-                ),
-              ),
-            ],
-          ),
+        body: TabBarView(
+          children: _tabPages,
+          controller: _tabController,
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        bottomNavigationBar: Material(
+          color: Colors.grey[900],
+          child: TabBar(
+            tabs: _tabTabs,
+            controller: _tabController,
+            labelColor: Colors.yellow,
+            unselectedLabelColor: Colors.white,
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorPadding: EdgeInsets.all(5.0),
+            indicatorColor: Colors.red,
           ),
         ),
       );

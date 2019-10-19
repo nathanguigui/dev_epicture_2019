@@ -10,7 +10,7 @@ class _SearchingPagePageState extends State<SearchingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Recherche")),
+      appBar: null,
       body: Center(
         child: Column(
           children: <Widget>[
