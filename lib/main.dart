@@ -5,11 +5,14 @@ import 'ourGalleryPage.dart';
 import 'searchingPage.dart';
 import 'addImagePage.dart';
 import 'favoritesPage.dart';
+import 'globals.dart' as globals;
 
 void main() {
   runApp(MaterialApp(
     home: SplashScreen(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
+      '/splash': (BuildContext contet) => SplashScreen(),
+      '/home': (BuildContext contet) => MyHomePage(),
       '/auth': (BuildContext context) => AuthPage(),
       '/gallery': (BuildContext context) => OwnerGalleryPage(),
       '/browser': (BuildContext context) => SearchingPage(),
@@ -49,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Epicture'),
+          title: Text('On The Flux'),
         ),
         drawer: new Drawer(
           child: ListView(
@@ -65,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: RaisedButton(
                   onPressed: () => Navigator.pushNamed(context, '/auth'),
                   child: const Text(
-                      'Connexion',
+                      'Profil',
                       style: TextStyle(fontSize: 20)
                   ),
                 ),
