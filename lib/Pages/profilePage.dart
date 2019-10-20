@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String _urlAvatar = null;
   String _mail = null;
   bool _mature = null;
+  bool _message = null;
   var _loading = true;
 
   SharedPreferences _prefs;
@@ -54,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
       _mature = _email.showMature;
       _avatar = avatar.data;
       _urlAvatar = _avatar.location;
-
+      _message = _email.messagingEnabled;
       _loading = false;
     });
   }
@@ -98,6 +99,27 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 300.0,
                 height: 20.0,
                 child: Text("Email : " + this._mail),
+                alignment: Alignment(0.0, 0.0),
+              ),
+              const SizedBox(height: 30),
+              new Container(
+
+                width: 300.0,
+                height: 20.0,
+                child: Text("Show Mature Content Status: "),
+                alignment: Alignment(0.0, 0.0),
+              ),
+              new Container(
+                width: 300.0,
+                height: 20.0,
+                child: Switch(
+                  inactiveTrackColor: Colors.red[200],
+                  activeColor: Colors.green,
+                  activeTrackColor: Colors.green[200],
+                  inactiveThumbColor: Colors.red,
+                  onChanged: null,
+                  value: this._mature,
+                ),
                 alignment: Alignment(0.0, 0.0),
               ),
             ],
