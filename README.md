@@ -1,6 +1,10 @@
-# epicture
+# Notice d'utilisation de notre Epicture
 
-epicture epitech
+Notre application est divisée en trois parties principales, en plus du profil pour se connecter.
+
+## Profil
+
+Le bouton de profil situé en haut à droite ouvre une webview qui permet de se connecter à Imgur si vous n'êtes pas encore connectés, ou de voir votre nom d'utilisateur si vous l'êtes déjà.
 
 ## Getting Started
 
