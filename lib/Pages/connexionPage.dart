@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:epicture/Widget/LoadingCircleCenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:imgur/imgur.dart';
@@ -75,6 +76,7 @@ class _AuthPageState extends State<AuthPage> {
       url: _webviewLink,
       withZoom: false,
       withLocalStorage: false,
+      initialChild: Container(child: LoadingCircleCenter(),),
       appBar: new AppBar(
         title: const Text('Connexion'),
       ),

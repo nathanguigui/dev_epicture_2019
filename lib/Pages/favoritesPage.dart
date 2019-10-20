@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:epicture/Widget/ImagePreviewer.dart';
+import 'package:epicture/Widget/LoadingCircleCenter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,7 +17,7 @@ class FavoritesPage extends StatefulWidget {
 
 class _FavoritesPageState extends State<FavoritesPage> {
   var _token = "";
-  List<ImgurApi.Image> _pictures;
+  List<ImgurApi.GalleryAlbumImage> _pictures;
   var _loading = true;
 
   void getImages() async {
@@ -23,7 +26,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     final client = Imgur(
       Authentication.fromToken(_token));
     _token = prefs.getString("token");
-    final resp = await client.account.getImages();
+    final resp = await client.account.getFavoriteImages();
     setState(() {
       _token = _token;
       _pictures = resp.data;
@@ -41,11 +44,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     List<Widget> picWidget = [];
     if (_loading)
-      picWidget.add(Text("Loading"));
+      return LoadingCircleCenter();
     else {
       this._pictures.forEach((pic) => {
         if (pic.favorite)
-          picWidget.add(ImagePreviewer(url: pic.link, name: pic.title,)),
+          picWidget.add(ImagePreviewer(url: pic.link, name: pic.title, id: pic.id,)),
       });
     }
     return Scaffold(

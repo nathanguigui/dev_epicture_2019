@@ -1,4 +1,5 @@
 import 'package:epicture/Widget/ImagePreviewer.dart';
+import 'package:epicture/Widget/LoadingCircleCenter.dart';
 import 'package:flutter/material.dart';
 import 'package:imgur/imgur.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,10 +40,10 @@ class _OwnerGalleryPageState extends State<OwnerGalleryPage> {
   Widget build(BuildContext context) {
     List<Widget> picWidget = [];
     if (_loading)
-      picWidget.add(Text("Loading"));
+      return LoadingCircleCenter();
     else {
       this._pictures.forEach((pic) => {
-        picWidget.add(ImagePreviewer(url: pic.link, name: pic.title,)),
+        picWidget.add(ImagePreviewer(url: pic.link, name: pic.title, id: pic.id,)),
       });
     }
     return Scaffold(

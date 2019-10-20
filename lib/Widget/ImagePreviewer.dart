@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:epicture/Pages/imageDetailsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,40 +32,19 @@ class _ImagePreviewerState extends State<ImagePreviewer> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.url);
     return GestureDetector(
-      onTap: () {print("todo");},
+      onDoubleTap: () {print("make the add to fav func");},
+      onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ImageDetailsPage(id: widget.id, title: widget.name,)));},
       child: Container(
-        child: Container(
-          margin: EdgeInsets.all(5),
-          child: Align(
-            child: Row(
-              children: <Widget>[
-                ButtonBar(
-                  alignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    FlatButton(
-                      child: Text(widget.name, style: TextStyle(fontSize: 20, color: Colors.green)),
-                      onPressed: () {print("todo");},
-                    )
-                  ],
-                ),
-              ]
-            ),
-            alignment: Alignment.bottomLeft,
-          )
-        ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.grey[900],
-            image: DecorationImage(
-                image: CachedNetworkImageProvider(widget.url),
-                fit: BoxFit.cover
+        width: MediaQuery.of(context).size.width - 20.0,
+        margin: EdgeInsets.only(bottom: 40),
+        child: Stack(
+          children: <Widget>[
+            Center(
+              child: new CachedNetworkImage(imageUrl: widget.url, fit: BoxFit.fill),
             )
+          ],
         ),
-        height: 190.0,
-        width: MediaQuery.of(context).size.width - 70.0,
-        margin: EdgeInsets.only(bottom: 20),
       )
     );
   }

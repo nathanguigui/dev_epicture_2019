@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:backdrop/backdrop.dart';
+import 'package:epicture/Pages/imageDetailsPage.dart';
 import 'package:epicture/Pages/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'Misc/SplashScreen.dart';
@@ -29,6 +30,7 @@ void main() {
       '/add': (BuildContext context) => AddImagePage(),
       '/favorites': (BuildContext context) => FavoritesPage(),
       '/profile': (BuildContext context) => ProfilePage(),
+      '/image/': (BuildContext context) => ImageDetailsPage(),
     },
   ));
 }
