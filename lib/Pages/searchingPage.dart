@@ -1,3 +1,4 @@
+import 'package:epicture/Widget/ImagePreviewer.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
@@ -18,6 +19,7 @@ class _SearchingPagePageState extends State<SearchingPage> {
               onPressed: () => Navigator.pop(context),
               child: Text("Back"),
             ),
+            ImagePreviewer(url: "toto", name: "toto")
           ],
         ),
       ),

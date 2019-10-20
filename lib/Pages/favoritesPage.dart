@@ -1,5 +1,10 @@
+import 'package:epicture/Widget/ImagePreviewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:imgur/imgur.dart';
+import 'package:imgur/imgur.dart' as ImgurApi;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -8,155 +13,49 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  String iconChoosen = '';
+  var _token = "";
+  List<ImgurApi.Image> _pictures;
+  var _loading = true;
 
-  void _select(Choice choice) {
+  void getImages() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString("token");
+    final client = Imgur(
+      Authentication.fromToken(_token));
+    _token = prefs.getString("token");
+    final resp = await client.account.getImages();
     setState(() {
-      iconChoosen = choice.title;
+      _token = _token;
+      _pictures = resp.data;
+      _loading = false;
     });
   }
+
+  @override
+  void initState() {
+    this.getImages();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> picWidget = [];
+    if (_loading)
+      picWidget.add(Text("Loading"));
+    else {
+      this._pictures.forEach((pic) => {
+        if (pic.favorite)
+          picWidget.add(ImagePreviewer(url: pic.link, name: pic.title,)),
+      });
+    }
     return Scaffold(
-      appBar: AppBar(title: Text("Page des favoris" ), centerTitle: true),
-      body:
-      SwipeList(str: '$iconChoosen'),
-      bottomNavigationBar: BottomAppBar(
-        child: new Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(icon: Icon(Icons.new_releases), onPressed: () {
-                _select(choices[0]);
-              },
-            ),
-            IconButton(icon: Icon(Icons.audiotrack), onPressed: () {
-              _select(choices[1]);
-            },),
-            IconButton(icon: Icon(Icons.nature), onPressed: () {
-              _select(choices[2]);
-            },),
-            IconButton(icon: Icon(Icons.beach_access), onPressed: () {
-              _select(choices[3]);
-            },),
-            IconButton(icon: Icon(Icons.casino), onPressed: () {
-              _select(choices[4]);
-            },),
-            IconButton(icon: Icon(Icons.child_care), onPressed: () {
-              _select(choices[5]);
-            },),
-          ],
+      appBar: null,
+      body: Center(
+        child: ListView(
+          children: picWidget,
+          padding: EdgeInsets.all(20),
         ),
       ),
     );
-  }
-}
-
-class Choice {
-  const Choice({this.title});
-
-  final String title;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'New'),
-  const Choice(title: 'Music'),
-  const Choice(title: 'Nature'),
-  const Choice(title: 'Beach'),
-  const Choice(title: 'Games'),
-  const Choice(title: 'Children'),
-];
-
-class SwipeList extends StatefulWidget {
-  final String str;
-  const SwipeList({Key key, this.str}): super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return ListItemWidget();
-  }
-}
-
-class ListItemWidget extends State<SwipeList> {
-  List items = getNameList();
-  List desc = getDescList();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            if (index == 0 ) {
-              return Card(
-                elevation: 5,
-                child: Container (
-                  height: 100.0,
-                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(120, 20, 0, 0),
-                      child: Text(widget.str, style: TextStyle(
-                        fontSize: 40,
-                        color: Color.fromARGB(255, 48, 48, 54)
-                ),),
-                ),),);
-            }
-           return Card(
-                elevation: 5,
-                child: Container(
-                  height: 100.0,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        height: 100.0,
-                        width: 78.0,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage("https://i.imgur.com/KMLeXgi.jpg")
-                            )
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 2, 0, 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                items[index],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(0, 15, 0, 2),
-                                child: Container(
-                                  width: 260,
-                                  child: Text(desc[index], style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color.fromARGB(255, 48, 48, 54)
-                                  ),),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-          },
-        ));
-  }
-  static List getNameList() {
-    List name = List.generate(10, (i) {
-      return "Item ${i + 1}";
-    });
-    return name;
-  }
-  static List getDescList() {
-    List desc = List.generate(10, (i) {
-      return "random desc n°${i + 1}";
-    });
-    return desc;
   }
 }

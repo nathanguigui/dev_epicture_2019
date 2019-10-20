@@ -15,7 +15,7 @@ void main() {
     theme: ThemeData(
       brightness: Brightness.dark,
       accentColor: Colors.yellowAccent,
-      primaryColor: Colors.grey[900]
+      primaryColor: Colors.grey[900],
     ),
     debugShowCheckedModeBanner: false,
     home: SplashScreen(), // becomes the route named '/'
@@ -86,34 +86,34 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("EPICTURE"),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.account_circle),
-              onPressed: () {Navigator.pushNamed(context, "/auth");},
-            )
-          ],
-        ),
-        body: TabBarView(
-          children: _tabPages,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("EPICTURE"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            onPressed: () {Navigator.pushNamed(context, "/auth");},
+          )
+        ],
+      ),
+      body: TabBarView(
+        children: _tabPages,
+        controller: _tabController,
+      ),
+      bottomNavigationBar: Material(
+        color: Colors.grey[900],
+        child: TabBar(
+          tabs: _tabTabs,
           controller: _tabController,
+          labelColor: Colors.yellow,
+          unselectedLabelColor: Colors.white,
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorPadding: EdgeInsets.all(5.0),
+          indicatorColor: Colors.red,
         ),
-        bottomNavigationBar: Material(
-          color: Colors.grey[900],
-          child: TabBar(
-            tabs: _tabTabs,
-            controller: _tabController,
-            labelColor: Colors.yellow,
-            unselectedLabelColor: Colors.white,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorPadding: EdgeInsets.all(5.0),
-            indicatorColor: Colors.red,
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
+}
