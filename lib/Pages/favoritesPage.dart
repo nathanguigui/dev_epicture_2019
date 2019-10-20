@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:epicture/Widget/ImagePreviewer.dart';
@@ -8,6 +10,8 @@ import 'package:flutter/painting.dart';
 import 'package:imgur/imgur.dart';
 import 'package:imgur/imgur.dart' as ImgurApi;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 import '../main.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -17,7 +21,8 @@ class FavoritesPage extends StatefulWidget {
 
 class _FavoritesPageState extends State<FavoritesPage> {
   var _token = "";
-  List<ImgurApi.GalleryAlbumImage> _pictures;
+  var _username = "";
+  var _pictures;
   var _loading = true;
 
   void getImages() async {
@@ -26,7 +31,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
     final client = Imgur(
       Authentication.fromToken(_token));
     _token = prefs.getString("token");
-    final resp = await client.account.getFavoriteImages();
+    _username = prefs.getString("username");
+    var jsonObj = await client.request(HttpMethod.GET, "https://api.imgur.com/3/account/" + _username + "/favorites/");
+    var resp = json.decode(jsonObj.body);
     setState(() {
       _token = _token;
       _pictures = resp.data;
@@ -47,8 +54,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
       return LoadingCircleCenter();
     else {
       this._pictures.forEach((pic) => {
-        if (pic.favorite)
-          picWidget.add(ImagePreviewer(url: pic.link, name: pic.title, id: pic.id,)),
+        print(pic.toJson())
+        /*if (pic.favorite)
+          picWidget.add(ImagePreviewer(url: pic.link, name: pic.title, id: pic.id,)),*/
       });
     }
     return Scaffold(
