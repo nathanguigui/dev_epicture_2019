@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,7 +58,7 @@ class _ImagePreviewerState extends State<ImagePreviewer> {
             borderRadius: BorderRadius.circular(5),
             color: Colors.grey[900],
             image: DecorationImage(
-                image: new NetworkImage(widget.url),
+                image: CachedNetworkImageProvider(widget.url),
                 fit: BoxFit.cover
             )
         ),

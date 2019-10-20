@@ -41,12 +41,6 @@ class _AuthPageState extends State<AuthPage> {
       });
   }
 
-  void _login() async {
-    setState(() {
-      _openWebview = true;
-    });
-  }
-
   bool _checkUrl(String url) {
     if (url.substring(0, 29) == "https://pastek.space/callback")
       return true;
@@ -69,13 +63,10 @@ class _AuthPageState extends State<AuthPage> {
       if (tmp[0] == "account_id")
         userInfos.accountId = int.parse(tmp[1]);
     }
-    print(url);
-    setState(() {
-      _token = userInfos.token;
-    });
     this._prefs.setString("token", userInfos.token);
     this._prefs.setString("username", userInfos.username);
     this._prefs.setBool("authenticated", true);
+    Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
   }
 
   @override
@@ -93,43 +84,13 @@ class _AuthPageState extends State<AuthPage> {
       if (this._checkUrl(url))
         this._parseUrl(url);
     });
-    print(this._token);
-    if (this._token.length != 0) {
-      return Scaffold(
-        appBar: AppBar(title: Text("Profil")),
-        body: ListView(
-          padding: EdgeInsets.all(16.0),
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Text(this._username)
-              ],
-            )
-          ],
-        ),
-      );
-    }
-    if (this._openWebview)
-      return this._webviewController;
-    return Scaffold(
-      appBar: AppBar(title: Text("Connexion")),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () => this._login(),
-              child: Text("Cliquez pour vous conneter"),
-            ),
-          ],
-        ),
-      ),
-    );
-    }
+    return this._webviewController;
+  }
 
-    void loadInfos() {
-      setState(() {
-        this._token = this._prefs.getString("token");
-        this._username = this._prefs.getString("username");
-      });
-    }
+  void loadInfos() {
+    setState(() {
+      this._token = this._prefs.getString("token");
+      this._username = this._prefs.getString("username");
+    });
+  }
 }
