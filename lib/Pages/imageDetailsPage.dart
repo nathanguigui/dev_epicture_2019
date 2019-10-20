@@ -19,6 +19,7 @@ class ImageDetailsPage extends StatefulWidget {
 class _ImageDetailsPage extends State<ImageDetailsPage> {
   var _loading = true;
   var _token = "";
+  var _favorite = false;
   ImgurApi.Image _infos;
 
   void getInfos() async {
@@ -30,6 +31,16 @@ class _ImageDetailsPage extends State<ImageDetailsPage> {
       _token = _token;
       _infos = resp.data;
       _loading = false;
+      _favorite = resp.data.favorite;
+    });
+  }
+
+  void setLike() {
+    final client = Imgur(Authentication.fromToken(_token));
+    client.image.favorite(widget.id).then((onValue) => {
+      setState(() {
+        _favorite = !_favorite;
+      })
     });
   }
 
@@ -46,7 +57,7 @@ class _ImageDetailsPage extends State<ImageDetailsPage> {
       );
     else {
       var favIcon;
-      if (_infos.favorite)
+      if (_favorite)
         favIcon = Icons.favorite;
       else
         favIcon = Icons.favorite_border;
@@ -82,7 +93,7 @@ class _ImageDetailsPage extends State<ImageDetailsPage> {
             children: <Widget>[
               IconButton(
                 icon: Icon(favIcon),
-                onPressed: () {},
+                onPressed: () {setLike();},
               )
             ],
           ),
