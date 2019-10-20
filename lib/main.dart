@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:backdrop/backdrop.dart';
+import 'package:epicture/Pages/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'Misc/SplashScreen.dart';
 import 'Pages/connexionPage.dart';
@@ -21,12 +22,13 @@ void main() {
     home: SplashScreen(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
       '/splash': (BuildContext contet) => SplashScreen(),
-      '/home': (BuildContext contet) => MyHomePage(),
       '/auth': (BuildContext context) => AuthPage(),
+      '/home': (BuildContext contet) => MyHomePage(),
       '/gallery': (BuildContext context) => OwnerGalleryPage(),
       '/browser': (BuildContext context) => SearchingPage(),
       '/add': (BuildContext context) => AddImagePage(),
       '/favorites': (BuildContext context) => FavoritesPage(),
+      '/profile': (BuildContext context) => ProfilePage(),
     },
   ));
 }
@@ -94,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.account_circle),
-            onPressed: () {Navigator.pushNamed(context, "/auth");},
+            onPressed: () {Navigator.pushNamed(context, "/profile");},
           )
         ],
       ),

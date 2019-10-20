@@ -15,11 +15,7 @@ class _SearchingPagePageState extends State<SearchingPage> {
       body: Center(
         child: Column(
           children: <Widget>[
-            RaisedButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text("Back"),
-            ),
-            ImagePreviewer(url: "toto", name: "toto")
+            Text("todo")
           ],
         ),
       ),
